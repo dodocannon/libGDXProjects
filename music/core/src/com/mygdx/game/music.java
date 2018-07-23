@@ -20,7 +20,7 @@ public class music extends ApplicationAdapter {
 
 
 		song1.play();
-		
+
 
 		song1.setOnCompletionListener(new Music.OnCompletionListener() {
 			@Override
