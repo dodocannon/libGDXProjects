@@ -101,7 +101,7 @@ public class test3 extends ApplicationAdapter implements InputProcessor{
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		//sprite.setPosition(screenX - sprite.getWidth()/2, Gdx.graphics.getHeight() - screenY-sprite.getHeight()/2);
+		sprite.setPosition(screenX - sprite.getWidth()/2, Gdx.graphics.getHeight() - screenY-sprite.getHeight()/2);
 		return false;
 	}
 
