@@ -24,7 +24,7 @@ public class Gesture extends ApplicationAdapter implements GestureDetector.Gestu
 		batch = new SpriteBatch();
 		sprite = new Sprite(new Texture("storm.png"));
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
-		sprite.setCenter(.5f,.5f);
+		sprite.setCenter (.5f,.5f);
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
 		camera.update();
