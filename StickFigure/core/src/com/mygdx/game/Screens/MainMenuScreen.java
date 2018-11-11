@@ -37,7 +37,7 @@ public class MainMenuScreen implements Screen {
     public void render(float delta) {
         if (touched)
         {
-            alpha-=.2 * Gdx.graphics.getDeltaTime();
+            alpha-=.35 * Gdx.graphics.getDeltaTime();
             Gdx.gl.glClearColor(alpha,alpha,alpha,1);
         }
         else {
@@ -54,14 +54,12 @@ public class MainMenuScreen implements Screen {
         game.font.draw(game.batch, "Tap anywhere to begin",100,100);
         game.batch.draw(StupidStickFigure, 400 - 64, 240-64, StupidStickFigure.getHeight()*2, StupidStickFigure.getWidth()*2);
         game.batch.end();
-        if (touched) camera.zoom -= .1 * Gdx.graphics.getDeltaTime();
+        if (touched) camera.zoom -= .25 * Gdx.graphics.getDeltaTime();
         if (camera.zoom < .32f)
         {
-            //camera.zoom = 0;
-           game.setScreen(new QuoteScreen(game));
+
+           game.setScreen(new QuoteScreen(game, "LEVEL THE FUCK ONE!!!"));
            dispose();
-
-
         }
         if (Gdx.input.isTouched())
         {

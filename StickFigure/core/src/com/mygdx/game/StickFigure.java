@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Screens.MainMenuScreen;
+import com.mygdx.game.Screens.TomatoScreen;
 
 public class StickFigure extends Game {
 	public SpriteBatch batch;
@@ -14,7 +15,7 @@ public class StickFigure extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new TomatoScreen(this));
 	}
 
 	@Override
