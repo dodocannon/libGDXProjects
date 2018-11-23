@@ -108,6 +108,7 @@ public class drop extends ApplicationAdapter implements InputProcessor {
 
 
 
+}
 	@Override
 	public boolean keyDown(int keycode) {
 		/*switch (keycode)
@@ -118,7 +119,6 @@ public class drop extends ApplicationAdapter implements InputProcessor {
 
 		}*/
 		return true;
-	}
 
 	@Override
 	public boolean keyUp(int keycode) {

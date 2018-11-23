@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.StickFigure;
+import com.mygdx.game.TomatoSplatAction;
 
 
 public class TomatoScreen implements Screen {
@@ -30,8 +32,8 @@ public class TomatoScreen implements Screen {
     private Stage stage;
     private Table table;
     private Image t1, t2, t3, t4, t5;
-    //private Image curr;
-    private SnapshotArray imageContainer;
+   // MoveToAction action;
+
 
     public TomatoScreen(StickFigure game) {
 
@@ -72,7 +74,13 @@ public class TomatoScreen implements Screen {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         System.out.println("clicked" + rand);
+                        TomatoSplatAction a = new TomatoSplatAction(curr);
+                        curr.addAction(a);
+                       /* MoveToAction action = new MoveToAction();
+                        action.setPosition(100,200);
+                        action.setDuration(10);
                         curr.setDrawable(textureToDrawable(door));
+                        curr.addAction(action);*/
 
                     }
                 });
@@ -86,7 +94,7 @@ public class TomatoScreen implements Screen {
         }
 
 
-        imageContainer = table.getChildren();
+
         stage.addActor(table);
 
 
