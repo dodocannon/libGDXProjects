@@ -21,84 +21,80 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.StickFigure;
+import com.mygdx.game.Tomato;
 import com.mygdx.game.TomatoSplatAction;
 
 
-public class TomatoScreen implements Screen {
+public class TomatoScreen implements Screen{
     final StickFigure game;
-    OrthographicCamera camera;
-    ClickListener appleChange;
-    private Texture tomato1, tomato2, tomato3, tomato4, tomato5, appleword, tomatoword, door;
+
+    private Image tomato1, tomato2, tomato3, tomato4, tomato5, appleword, tomatoword, door;
     private Stage stage;
     private Table table;
-    private Image t1, t2, t3, t4, t5;
-   // MoveToAction action;
+
+    int appleTarget;
+    Image[]  numberContainer = new Image[5];
 
 
     public TomatoScreen(StickFigure game) {
-
-        //imageContainer = new ArrayList<Image>();
+        appleTarget = MathUtils.random(4);
         stage = new Stage(new FitViewport(800, 480)); // 800 x 480 world
-
         this.game = game;
+
+        numberContainer[0] = new Image(new Texture(Gdx.files.internal("zeroText.png")));
+        numberContainer[1] = new Image(new Texture(Gdx.files.internal("oneText.png")));
+        numberContainer[2] = new Image(new Texture(Gdx.files.internal("twoText.png")));
+        numberContainer[3] = new Image(new Texture(Gdx.files.internal("threeText.png")));
+        numberContainer[4] = new Image(new Texture(Gdx.files.internal("fourText.png")));
+
+
+        numberContainer[appleTarget].setPosition(144,480-64);
+
+        tomatoword = new Image(new Texture(Gdx.files.internal("tomatoText.png")));
+
+        tomatoword.setPosition(16,480-tomatoword.getHeight());
+
+
+
+
+
 
 
         table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
+        table.setY(table.getY()-32);
 
 
-        door = new Texture(Gdx.files.internal("door.png"));
-        tomato1 = new Texture(Gdx.files.internal("tomato1.png"));
-        tomato2 = new Texture(Gdx.files.internal("tomato2.png"));
-        tomato3 = new Texture(Gdx.files.internal("tomato3.png"));
-        tomato4 = new Texture(Gdx.files.internal("tomato4.png"));
-        tomato5 = new Texture(Gdx.files.internal("tomato5.png"));
 
-        t1 = new Image(tomato1);
-        t2 = new Image(tomato2);
-        t3 = new Image(tomato3);
-        t4 = new Image(tomato4);
-        t5 = new Image(tomato5);
 
         for (int k = 0; k < 6; k++) {
-
             for (int i = 0; i < 12; i++) {
-                final int rand = MathUtils.random(4) + 1;
+               /* final int rand = MathUtils.random(4);
                 final Image curr = new Image(new Texture(Gdx.files.internal("tomato" + (rand) + ".png")));
-
-
                 table.add(curr);
                 curr.addListener(new ClickListener()
                 {
+
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         System.out.println("clicked" + rand);
                         TomatoSplatAction a = new TomatoSplatAction(curr);
                         curr.addAction(a);
-                       /* MoveToAction action = new MoveToAction();
-                        action.setPosition(100,200);
-                        action.setDuration(10);
-                        curr.setDrawable(textureToDrawable(door));
-                        curr.addAction(action);*/
 
                     }
-                });
-
-                //imageContainer.add(curr);
-
+                });*/
+               table.add(new Tomato());
 
             }
             table.row();
 
         }
-
-
-
         stage.addActor(table);
+        stage.addActor(numberContainer[appleTarget]);
+        stage.addActor(tomatoword);
 
 
-       // InputMultiplexer im = new InputMultiplexer(stage, this);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -115,9 +111,6 @@ public class TomatoScreen implements Screen {
         stage.act(Gdx.graphics.getDeltaTime());
 
         stage.draw();
-
-
-
     }
 
     private Drawable textureToDrawable(Texture t) // I made this method to convert textures to drawables for ease of modification in the table
@@ -128,7 +121,6 @@ public class TomatoScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height);
-        //table.invalidateHierarchy();
     }
 
     @Override
@@ -150,6 +142,8 @@ public class TomatoScreen implements Screen {
     public void dispose() {
 
     }
+
+
 }
 
-    // inputprocessor methods that must be overriden
+
