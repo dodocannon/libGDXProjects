@@ -63,7 +63,7 @@ public class TomatoScreen implements Screen{
         table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
-        table.setY(table.getY()-32);
+        //table.setY(table.getY()-32);
 
 
 
@@ -84,7 +84,10 @@ public class TomatoScreen implements Screen{
 
                     }
                 });*/
-               table.add(new Tomato());
+               int rand = MathUtils.random(4);
+               Tomato curr = new Tomato(rand, true);
+               table.add(curr);
+
 
             }
             table.row();
