@@ -28,12 +28,13 @@ import com.mygdx.game.TomatoSplatAction;
 public class TomatoScreen implements Screen{
     final StickFigure game;
 
-    private Image tomato1, tomato2, tomato3, tomato4, tomato5, appleword, tomatoword, door;
+    private Image appleword, tomatoword, door;
     private Stage stage;
     private Table table;
 
     int appleTarget;
-    Image[]  numberContainer = new Image[5];
+
+    Image[] numberContainer = new Image[5];
 
 
     public TomatoScreen(StickFigure game) {
@@ -85,7 +86,7 @@ public class TomatoScreen implements Screen{
                     }
                 });*/
                int rand = MathUtils.random(4);
-               Tomato curr = new Tomato(rand, true);
+               Tomato curr = new Tomato(rand, rand==appleTarget);
                table.add(curr);
 
 
