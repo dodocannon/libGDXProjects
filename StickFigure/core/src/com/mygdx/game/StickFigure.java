@@ -15,7 +15,7 @@ public class StickFigure extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new TomatoScreen(this));
 	}
 
 	@Override

@@ -14,9 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Pool;
-
-import javax.sound.midi.Sequence;
-
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 
 public class Tomato extends Actor {
@@ -25,12 +22,8 @@ public class Tomato extends Actor {
     Animation<TextureRegion> animation;
     private float animationTime, explosionAnimationSpeed,jitterSpeed;
 
-
     private int tomatoNumber;
     private boolean rightTomato, alreadyExploded, clicked, actionCompleted;
-
-
-
 
     private ClickListener listener;
     private TextureRegion explosionFrame, tomatoSprite;
@@ -67,10 +60,6 @@ public class Tomato extends Actor {
     }
     private void init()
     {
-        //initializing the action sequence for "jittery" apple movement when a user clicks on a "non target" tomato
-
-
-
         //initializing the libgdx animation for containing the frames that will make up the animation when the user clicks on a "target" tomato
         animationFrames = new TextureRegion[9];
         int a = 0;
@@ -96,8 +85,6 @@ public class Tomato extends Actor {
                 if (!alreadyExploded) {
                     clicked = true;
                     alreadyExploded = !alreadyExploded;
-
-
                 }
 
             }
@@ -146,10 +133,6 @@ public class Tomato extends Actor {
 
 
         return sequenceAction;
-
-
-
-
     }
 
     private Drawable textureToDrawable(Texture t) // I made this method to convert textures to drawables for ease of modification in the table
@@ -161,10 +144,7 @@ public class Tomato extends Actor {
     public void act(float delta) {
         super.act(delta); //need to call super so I don't lose the parent class's abilities (act sequencing, etc)
         setBounds( getParent().getX()+getX(), getParent().getY()+getY(), 64,64 );
-        System.out.println(getParent().getY());
         if (clicked) animationTime += delta;
-
-        //someActor.setBounds( getParent().getX()+getX(), getParent.getY()+getY(), someActor.getPrefWidth(), someActor.getPrefHeight() );
     }
 
     @Override
@@ -173,7 +153,6 @@ public class Tomato extends Actor {
         if (clicked && rightTomato) {
              //if this tomato is the "right" (exploding) tomato...
                 explosionFrame = animation.getKeyFrame(animationTime);
-                //batch.draw(new Texture(Gdx.files.internal("door.png")),getX(),getY(),64,64);
                 batch.draw(explosionFrame,getX(),getY(),64,64);
         }
         else

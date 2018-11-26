@@ -1,28 +1,20 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.StickFigure;
 import com.mygdx.game.Tomato;
-import com.mygdx.game.TomatoSplatAction;
+import com.mygdx.game.TomatoTable;
 
 
 public class TomatoScreen implements Screen{
@@ -55,15 +47,18 @@ public class TomatoScreen implements Screen{
 
         tomatoword.setPosition(16,480-tomatoword.getHeight());
 
+        TomatoTable tt = new TomatoTable(4,4,appleTarget);
+        tt.setFillParent(true);
+        tt.fill();
+        stage.addActor(tt);
 
 
 
 
-
-
+/*
         table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        //table.setDebug(true);
         //table.setY(table.getY()-32);
 
 
@@ -71,7 +66,7 @@ public class TomatoScreen implements Screen{
 
         for (int k = 0; k < 6; k++) {
             for (int i = 0; i < 12; i++) {
-               /* final int rand = MathUtils.random(4);
+               *//* final int rand = MathUtils.random(4);
                 final Image curr = new Image(new Texture(Gdx.files.internal("tomato" + (rand) + ".png")));
                 table.add(curr);
                 curr.addListener(new ClickListener()
@@ -84,7 +79,7 @@ public class TomatoScreen implements Screen{
                         curr.addAction(a);
 
                     }
-                });*/
+                });*//*
                int rand = MathUtils.random(4);
                Tomato curr = new Tomato(rand, rand==appleTarget);
                table.add(curr);
@@ -94,10 +89,10 @@ public class TomatoScreen implements Screen{
             table.row();
 
         }
-        stage.addActor(table);
+        stage.addActor(table);*/
         stage.addActor(numberContainer[appleTarget]);
         stage.addActor(tomatoword);
-
+        //table.remove();
 
         Gdx.input.setInputProcessor(stage);
     }
