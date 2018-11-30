@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.Background;
 import com.mygdx.game.StickFigure;
 import com.mygdx.game.Tomato;
 import com.mygdx.game.TomatoTable;
@@ -28,11 +30,14 @@ public class TomatoScreen implements Screen{
 
     Image[] numberContainer = new Image[5];
 
-
+    ScreenViewport viewport = new ScreenViewport();
     public TomatoScreen(StickFigure game) {
-        appleTarget = MathUtils.random(4);
-        stage = new Stage(new FitViewport(800, 480)); // 800 x 480 world
         this.game = game;
+
+        appleTarget = MathUtils.random(4);
+
+
+        stage = new Stage(viewport); // 800 x 480 world
 
         numberContainer[0] = new Image(new Texture(Gdx.files.internal("zeroText.png")));
         numberContainer[1] = new Image(new Texture(Gdx.files.internal("oneText.png")));
@@ -47,10 +52,13 @@ public class TomatoScreen implements Screen{
 
         tomatoword.setPosition(16,480-tomatoword.getHeight());
 
-        TomatoTable tt = new TomatoTable(4,4,appleTarget);
-        tt.setFillParent(true);
-        tt.fill();
-        stage.addActor(tt);
+        TomatoTable tomatoFarm = new TomatoTable(4,4,appleTarget, viewport);
+        tomatoFarm.setFillParent(true);
+        tomatoFarm.fill();
+
+        Background b = new Background(viewport);
+        stage.addActor(b);
+        stage.addActor(tomatoFarm);
 
 
 

@@ -14,20 +14,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 
 public class Tomato extends Actor {
     TextureRegion[] animationFrames;
     TextureRegion tmpFrames[][] = TextureRegion.split(new Texture(Gdx.files.internal("tomatosheet.png")),64,64);
     Animation<TextureRegion> animation;
-    private float animationTime, explosionAnimationSpeed,jitterSpeed;
+    private float animationTime, explosionAnimationSpeed,jitterSpeed, tomatoWidth;
 
     private int tomatoNumber;
     private boolean rightTomato, alreadyExploded, clicked, actionCompleted;
 
     private ClickListener listener;
     private TextureRegion explosionFrame, tomatoSprite;
-
+    private Viewport globalViewport;
     //SequenceAction sequenceAction;
 
 
@@ -39,10 +41,12 @@ public class Tomato extends Actor {
 
 
 
-    public Tomato(int tomatoNumber, boolean rightTomato)
+    public Tomato(int tomatoNumber, boolean rightTomato, Viewport globalViewport)
     {
         this.rightTomato = rightTomato;
         this.tomatoNumber = tomatoNumber;
+        this.globalViewport = globalViewport;
+        tomatoWidth = globalViewport.getScreenWidth()/12;
 
         animationTime = 0;
         explosionAnimationSpeed = 1/15f;
@@ -52,6 +56,7 @@ public class Tomato extends Actor {
         actionCompleted = true;
 
         tomatoSprite = new TextureRegion(new Texture(Gdx.files.internal("tomato"+tomatoNumber+".png")));
+
 
 
 
@@ -135,15 +140,12 @@ public class Tomato extends Actor {
         return sequenceAction;
     }
 
-    private Drawable textureToDrawable(Texture t) // I made this method to convert textures to drawables for ease of modification in the table
-    {
-        return new TextureRegionDrawable(new TextureRegion(t));
-    }
+
 
     @Override
     public void act(float delta) {
         super.act(delta); //need to call super so I don't lose the parent class's abilities (act sequencing, etc)
-        setBounds( getParent().getX()+getX(), getParent().getY()+getY(), 64,64 );
+        setBounds( getParent().getX()+getX(), getParent().getY()+getY(), tomatoWidth,tomatoWidth );
         if (clicked) animationTime += delta;
     }
 
@@ -153,11 +155,11 @@ public class Tomato extends Actor {
         if (clicked && rightTomato) {
              //if this tomato is the "right" (exploding) tomato...
                 explosionFrame = animation.getKeyFrame(animationTime);
-                batch.draw(explosionFrame,getX(),getY(),64,64);
+                batch.draw(explosionFrame,getX(),getY(), tomatoWidth,tomatoWidth);
         }
         else
         {
-            batch.draw(tomatoSprite,getX(),getY(),64,64);
+            batch.draw(tomatoSprite,getX(),getY(),tomatoWidth,tomatoWidth);
         }
 
     }
