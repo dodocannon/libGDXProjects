@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -50,15 +52,24 @@ public class TomatoScreen implements Screen{
 
         tomatoword = new Image(new Texture(Gdx.files.internal("tomatoText.png")));
 
-        tomatoword.setPosition(16,480-tomatoword.getHeight());
+        //tomatoword.setPosition(16,100);
 
-        TomatoTable tomatoFarm = new TomatoTable(4,4,appleTarget, viewport);
-        tomatoFarm.setFillParent(true);
+        TomatoTable tomatoFarm = new TomatoTable(5,4,appleTarget, viewport);
+        tomatoFarm.setPosition(100,0);
+        //Actor a = new Actor();
+
+        //tomatoFarm.setFillParent(true);
+        //tomatoFarm.setSize(1000,1000);
+        tomatoFarm.setDebug(true);
         tomatoFarm.fill();
+
+        //tomatoFarm.setPosition(-10,0);
 
         Background b = new Background(viewport);
         stage.addActor(b);
         stage.addActor(tomatoFarm);
+        //stage.addActor(tomatoFarm);
+        //stage.addActor(a);
 
 
 
@@ -99,7 +110,7 @@ public class TomatoScreen implements Screen{
         }
         stage.addActor(table);*/
         stage.addActor(numberContainer[appleTarget]);
-        stage.addActor(tomatoword);
+      //  stage.addActor(tomatoword);
         //table.remove();
 
         Gdx.input.setInputProcessor(stage);
