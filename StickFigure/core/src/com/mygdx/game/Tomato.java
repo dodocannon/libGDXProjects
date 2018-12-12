@@ -44,14 +44,13 @@ public class Tomato extends Actor {
     public Tomato(int tomatoNumber, boolean rightTomato, Viewport globalViewport, float x, float y)
     {
 
-        //removed set size and set position.. it still seems to work
-        this.setBounds(x, y,tomatoWidth,tomatoWidth);
+        tomatoWidth = globalViewport.getScreenWidth()/12;
         this.rightTomato = rightTomato;
         this.tomatoNumber = tomatoNumber;
         this.globalViewport = globalViewport;
-        tomatoWidth = globalViewport.getScreenWidth()/12;
 
 
+        this.setBounds(x, y,tomatoWidth,tomatoWidth);
         animationTime = 0;
         explosionAnimationSpeed = 1/15f;
         jitterSpeed = .1f;
@@ -87,7 +86,7 @@ public class Tomato extends Actor {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("CLICIKE");
+
                 if (!rightTomato && actionCompleted)
                 {
                     actionCompleted = false;
@@ -153,7 +152,6 @@ public class Tomato extends Actor {
     public void act(float delta) {
         super.act(delta); //need to call super so I don't lose the parent class's abilities (act sequencing, etc)
         //setBounds( getParent().getX()+getX(), getParent().getY()+getY(), tomatoWidth,tomatoWidth );
-        System.out.println("ACTING at " + getX() + "," + getY() + "SIZE: " + getHeight() );
         if (clicked) animationTime += delta;
     }
 
