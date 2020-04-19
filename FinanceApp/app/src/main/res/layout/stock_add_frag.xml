@@ -2,7 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/cardview_dark_background"
     android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     <AutoCompleteTextView
         android:id="@+id/mAutoCompleteTextView"
         android:layout_width="match_parent"
@@ -11,15 +20,33 @@
         android:hint="Symbol (i.e. GOOG)"
         android:textSize="15sp"
         android:completionHint="Select a Stock"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
+        android:outlineSpotShadowColor="@color/cardview_light_background"
         android:completionThreshold="1"> <!-- the number of chars for suggestions to pop up-->
 
     </AutoCompleteTextView>
-    <include layout="@layout/cardview1"
-        android:id="@+id/mCardView1"
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginHorizontal="5dp"
-        android:visibility="gone"/>
+        android:gravity="center" >
+
+        <ProgressBar
+            android:id="@+id/spinny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:indeterminate="true" />
+
+        <include layout="@layout/cardview1"
+            android:id="@+id/mCardView1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
 
 
 

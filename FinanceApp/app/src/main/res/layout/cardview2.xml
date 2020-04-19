@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="5dp"
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="4dp"
     android:background="@android:color/transparent">
 
 
@@ -13,7 +16,7 @@
         android:layout_margin="4dp">
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView1_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="fuck yea"
@@ -23,37 +26,37 @@
 
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView1_2"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView1"
+            android:layout_below="@+id/textView1_1"
             android:maxLines="2"
             android:scrollHorizontally="false"
             android:text="whohohohoh"/>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView1_3"
 
             android:textSize="17sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="125dp"
-            android:layout_toEndOf="@+id/textView1"
-            android:layout_toRightOf="@id/textView1"
+            android:layout_toEndOf="@+id/textView1_1"
+            android:layout_toRightOf="@id/textView1_1"
             android:text="hellooo"/>
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textView1_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView3"
-            android:layout_alignLeft="@id/textView3"
-            android:layout_alignTop="@id/textView2"
+            android:layout_below="@+id/textView1_3"
+            android:layout_alignLeft="@id/textView1_3"
+            android:layout_alignTop="@id/textView1_2"
             android:text="heheheheh"/>
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textView1_5"
 
             android:textSize="17sp"
             android:layout_width="wrap_content"
@@ -63,13 +66,13 @@
             android:layout_marginLeft="50dp"
             android:text="jeff"/>
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textView1_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@id/textView5"
+            android:layout_alignRight="@id/textView1_5"
             android:text="helloahahaha"
-            android:layout_alignTop="@id/textView2"
-            android:layout_below="@+id/textView5"/>
+            android:layout_alignTop="@id/textView1_2"
+            android:layout_below="@+id/textView1_5"/>
 
     </RelativeLayout>
 
