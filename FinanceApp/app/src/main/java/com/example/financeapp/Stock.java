@@ -2,12 +2,14 @@ package com.example.financeapp;
 
 public class Stock {
     private String mName, mFullName, mPrice, mChange,mPercentChange;
+    private int shares;
 
-    public Stock(String mName, String mFullName, String mPrice, String mPercentChange){
+    public Stock(String mName, String mFullName, String mPrice, String mPercentChange, int shares){
         this.mName = mName;
         this.mFullName = mFullName;
         this.mPrice = mPrice;
         this.mPercentChange = mPercentChange;
+        this.shares = shares;
     }
 
     public void setName(String mName) {
@@ -49,4 +51,6 @@ public class Stock {
     public String getPercentChange() {
         return mPercentChange;
     }
+    public void setShares(int shares){ this.shares =shares;}
+    public int getShares() {return shares;}
 }

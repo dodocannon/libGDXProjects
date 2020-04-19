@@ -1,9 +1,9 @@
+/*
 package com.example.financeapp;
 
 import android.content.Context;
 
-import com.example.financeapp.Fragments.Frag1;
-import com.example.financeapp.Fragments.Frag2;
+//import com.example.financeapp.Fragments.Frag1;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -41,3 +41,4 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return mContext.getResources().getString(TAB_TITLES[position]);
     }
 }
+*/

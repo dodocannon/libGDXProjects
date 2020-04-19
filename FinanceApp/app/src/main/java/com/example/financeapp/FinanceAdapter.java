@@ -53,6 +53,6 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mPortfolioList.size();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.financeapp.Fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,13 +8,17 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.financeapp.MainActivity;
 import com.example.financeapp.R;
 import com.example.financeapp.Scraper;
 
@@ -25,18 +30,33 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 public class stock_add_fragment extends Fragment {
+    public interface stockFragmentListener{
+        String stockAdd(String stockName);
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.stock_add_frag, container, false);
         final AutoCompleteTextView mAutoCompleteTextView = v.findViewById(R.id.mAutoCompleteTextView);
         final CardView mCardView1 = v.findViewById(R.id.mCardView1);
+        final ImageButton mCheckButton = v.findViewById(R.id.mCheckButton);
         final String[] stocklist = getResources().getStringArray(R.array.stocklist);
-
+        final EditText mEditTextShareNumber = v.findViewById(R.id.mEditTextShareNumber);
 
         Toolbar mtoolbar = v.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mtoolbar);
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mtoolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                System.out.println("YUPU WENT BACK BRO");
+
+                portfolio_fragment pf = new portfolio_fragment();
+
+                getFragmentManager().beginTransaction().replace(R.id.Fragment_Container, pf).commit();
+            }
+        });
 
 
         //TODO make custom list item https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/res/res/layout/simple_list_item_1.xml
@@ -74,6 +94,15 @@ public class stock_add_fragment extends Fragment {
                     mTextView6.setTextColor(Color.GREEN);
                 }
                 System.out.println("POSISISON" + position);
+                //mCardView1.setClickable(true);
+                mCardView1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v1) {
+                        mCheckButton.setVisibility(View.VISIBLE);
+                        mEditTextShareNumber.setVisibility(View.VISIBLE);
+
+                    }
+                });
                 mCardView1.setVisibility(View.VISIBLE);
 
 

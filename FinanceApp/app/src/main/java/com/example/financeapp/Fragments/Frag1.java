@@ -1,3 +1,4 @@
+/*
 package com.example.financeapp.Fragments;
 
 import android.graphics.Color;
@@ -130,9 +131,11 @@ public class Frag1 extends Fragment {
                 Element price = doc.select("span[data-reactid='50']").first();
                 Element change = doc.select("span[data-reactid='51']").first();
                 //Elements e = doc.select("span[data-reactid='51']");
-                /*for (int i = 0; i < e.size(); i++) {
+                */
+/*for (int i = 0; i < e.size(); i++) {
                     System.out.printf("%s: %s\n", i, e.get(i).text());
-                }*/
+                }*//*
+
 
                 //System.out.println(name.text() + " " + price.text() + " " + change.text());
                 arr[0] = name.text();
@@ -183,3 +186,4 @@ public class Frag1 extends Fragment {
 
     }
 }
+*/
