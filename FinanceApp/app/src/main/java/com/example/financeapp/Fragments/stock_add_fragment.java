@@ -1,5 +1,6 @@
 package com.example.financeapp.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.example.financeapp.MainActivity;
 import com.example.financeapp.R;
 import com.example.financeapp.Scraper;
+import com.example.financeapp.Stock;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,8 +32,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 public class stock_add_fragment extends Fragment {
-    public interface stockFragmentListener{
-        String stockAdd(String stockName);
+    private stockAddFragmentListener listener;
+    private Stock mBuyStock;
+    public interface stockAddFragmentListener{
+       public void stockAdd(Stock stockName);
     }
     @Nullable
     @Override
@@ -52,12 +56,21 @@ public class stock_add_fragment extends Fragment {
             public void onClick(View v){
                 System.out.println("YUPU WENT BACK BRO");
 
-                portfolio_fragment pf = new portfolio_fragment();
-
-                getFragmentManager().beginTransaction().replace(R.id.Fragment_Container, pf).commit();
+               // portfolio_fragment pf = new portfolio_fragment();
+                getFragmentManager().popBackStack();
+                //getFragmentManager().beginTransaction().replace(R.id.Fragment_Container, pf).commit();
             }
         });
-
+        mCheckButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBuyStock.setShares(Integer.parseInt(mEditTextShareNumber.getText().toString()));
+                listener.stockAdd(mBuyStock);
+                mCardView1.setVisibility(View.GONE);
+                mEditTextShareNumber.setVisibility(View.GONE);
+                mCheckButton.setVisibility(View.GONE);
+            }
+        });
 
         //TODO make custom list item https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/res/res/layout/simple_list_item_1.xml
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, stocklist );
@@ -67,7 +80,7 @@ public class stock_add_fragment extends Fragment {
         mAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Stock selectedStock = null;
                 String mStockSelected = parent.getItemAtPosition(position).toString();
                 String[] mStockArr = Scraper.getData(mStockSelected.substring(0, mStockSelected.indexOf(" ")));
                 TextView mTextView1 = v.findViewById(R.id.textView1);
@@ -104,6 +117,7 @@ public class stock_add_fragment extends Fragment {
                     }
                 });
                 mCardView1.setVisibility(View.VISIBLE);
+                mBuyStock = new Stock(mTextView1.getText().toString(), mTextView2.getText().toString(), mTextView3.getText().toString(), mTextView5.getText().toString(), mTextView6.getText().toString(), 0);
 
 
             }
@@ -124,6 +138,8 @@ public class stock_add_fragment extends Fragment {
                 if(mAutoCompleteTextView.getText().toString().trim().length()==0)
                 {
                     mCardView1.setVisibility(View.GONE);
+                    mEditTextShareNumber.setVisibility(View.GONE);
+                    mCheckButton.setVisibility(View.GONE);
                 }
             }
         });
@@ -133,6 +149,19 @@ public class stock_add_fragment extends Fragment {
 
 
         return v;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof stockAddFragmentListener)
+        {
+            listener = (stockAddFragmentListener) context;
+        }
+        else
+        {
+            throw new RuntimeException("You didn't implement the methods");
+        }
     }
 }
 

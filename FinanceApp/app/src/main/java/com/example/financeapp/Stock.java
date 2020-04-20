@@ -4,12 +4,13 @@ public class Stock {
     private String mName, mFullName, mPrice, mChange,mPercentChange;
     private int shares;
 
-    public Stock(String mName, String mFullName, String mPrice, String mPercentChange, int shares){
+    public Stock(String mName, String mFullName, String mPrice, String mChange, String mPercentChange, int shares ){
         this.mName = mName;
         this.mFullName = mFullName;
         this.mPrice = mPrice;
         this.mPercentChange = mPercentChange;
         this.shares = shares;
+        this.mChange = mChange;
     }
 
     public void setName(String mName) {
@@ -53,4 +54,8 @@ public class Stock {
     }
     public void setShares(int shares){ this.shares =shares;}
     public int getShares() {return shares;}
+    public void updatesShare()
+    {
+
+    }
 }

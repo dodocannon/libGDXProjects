@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.example.financeapp.Fragments.portfolio_fragment;
 import com.example.financeapp.Fragments.stock_add_fragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements stock_add_fragment.stockAddFragmentListener {
     private stock_add_fragment mFragment_stock_add;
     private portfolio_fragment mPortfolioFragment;
     @Override
@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    @Override
+    public void stockAdd(Stock stockName) {
+        mPortfolioFragment.addStock(stockName);
+    }
 }
