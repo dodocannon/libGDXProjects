@@ -1,36 +1,51 @@
 package com.example.financeapp;
 
+import java.text.DecimalFormat;
+
 public class Stock {
-    private String mName, mFullName, mPrice, mChange,mPercentChange;
+    private String mName, mFullName, mBoughtPrice, mChange, mPercentChange, mCurrentPrice, mDayChange, mMarketValue;
+    private double dBoughtPrice, dPercentChange, dCurrentPrice, dDayChange, dMarketValue, dOriginalMarket;
     private int shares;
 
-    public Stock(String mName, String mFullName, String mPrice, String mChange, String mPercentChange, int shares ){
+    public Stock(String mName, String mFullName, String mBoughtPrice, int shares) {
         this.mName = mName;
         this.mFullName = mFullName;
-        this.mPrice = mPrice;
-        this.mPercentChange = mPercentChange;
         this.shares = shares;
-        this.mChange = mChange;
+        this.mBoughtPrice = mBoughtPrice;
+
+
+        dBoughtPrice = Double.parseDouble(mBoughtPrice.replace(",", ""));
+        dOriginalMarket = dBoughtPrice * shares;
+        dMarketValue = shares * dCurrentPrice;
+
+
     }
 
-    public void setName(String mName) {
-        this.mName = mName;
+
+    public void setShares(int shares) {
+        this.shares = shares;
     }
 
-    public void setFullName(String mFullName) {
-        this.mFullName = mFullName;
-    }
+    public void updatesShare() {
 
-    public void setPrice(String mPrice) {
-        this.mPrice = mPrice;
-    }
+        String[] mStockArr = Scraper.getData(mName);
+        System.out.println("updated succesfully");
+        mCurrentPrice = (mStockArr[1]);
 
-    public void setChange(String mChange) {
-        this.mChange = mChange;
-    }
+        dCurrentPrice = Double.parseDouble(mCurrentPrice.replace(",", ""));
+        if (dOriginalMarket == 0)
+        {
+            dOriginalMarket = shares * dCurrentPrice;
+        }
+        dMarketValue = dCurrentPrice * shares;
+        mMarketValue = dMarketValue + "";
+        mChange = " " + (dMarketValue - dOriginalMarket);
+        mPercentChange = ((dMarketValue - dOriginalMarket) / dOriginalMarket) + "";
+        mDayChange = mStockArr[2];
 
-    public void setPercentChange(String mPercentChange) {
-        this.mPercentChange = mPercentChange;
+        System.out.printf("\n%s %s %s %s %s %s %s %s\n", getName(), getFullName(), getCurrentSharePrice(), getBoughtSharePrice(), getDayChange(),getNetChange(),getShares(), getMarketValue());
+
+
     }
 
     public String getName() {
@@ -41,21 +56,31 @@ public class Stock {
         return mFullName;
     }
 
-    public String getPrice() {
-        return mPrice;
+    public String getCurrentSharePrice() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(dCurrentPrice);
+        //return mCurrentPrice;
     }
 
-    public String getChange() {
-        return mChange;
+    public String getBoughtSharePrice() {
+        return mBoughtPrice;
     }
 
-    public String getPercentChange() {
-        return mPercentChange;
+    public String getDayChange() {
+        return mDayChange;
     }
-    public void setShares(int shares){ this.shares =shares;}
-    public int getShares() {return shares;}
-    public void updatesShare()
-    {
 
+    public String getMarketValue() {
+        DecimalFormat df = new DecimalFormat("#,###.00");
+
+        return df.format(dMarketValue);
     }
+
+    public String getNetChange() {
+        return mChange + " (" + mPercentChange + "%)";
+    }
+    public int getShares() {
+        return shares;
+    }
+
 }

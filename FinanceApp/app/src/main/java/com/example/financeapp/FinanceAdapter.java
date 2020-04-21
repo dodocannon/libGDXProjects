@@ -1,6 +1,7 @@
 package com.example.financeapp;
 
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,18 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
 
 
     public static class FinanceViewHolder extends RecyclerView.ViewHolder {
-        public TextView mName, mFullName, mPrice, mPercentChange;
+        public TextView mName, mFullName, mCurrPrice, mNetChange, mQuantity, mDayChange, mBoughtPrice,mMarketValue;
 
         public FinanceViewHolder(View itemView) {
             super(itemView);
             mName = itemView.findViewById(R.id.textView1_1);
             mFullName = itemView.findViewById(R.id.textView1_2);
-            mPrice = itemView.findViewById(R.id.textView1_5);
-            mPercentChange = itemView.findViewById(R.id.textView1_6);
+            mBoughtPrice = itemView.findViewById(R.id.textView1_4);
+            mCurrPrice = itemView.findViewById(R.id.textView1_3);
+            mDayChange = itemView.findViewById(R.id.textView1_6);
+            mNetChange = itemView.findViewById(R.id.textView1_5);
+            mQuantity = itemView.findViewById(R.id.textView1_7);
+            mMarketValue = itemView.findViewById(R.id.textView1_8);
         }
     }
 
@@ -45,10 +50,24 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
     public void onBindViewHolder(@NonNull FinanceViewHolder holder, int position) {
         Stock mCurrentStock = mPortfolioList.get(position);
 
+
         holder.mName.setText(mCurrentStock.getName());
         holder.mFullName.setText(mCurrentStock.getFullName());
-        holder.mPercentChange.setText(mCurrentStock.getPercentChange());
-        holder.mPrice.setText(mCurrentStock.getPrice());
+        holder.mDayChange.setText("Day: " + mCurrentStock.getDayChange());
+        holder.mCurrPrice.setText(mCurrentStock.getCurrentSharePrice());
+        holder.mBoughtPrice.setText(mCurrentStock.getBoughtSharePrice());
+        holder.mNetChange.setText(mCurrentStock.getNetChange());
+        holder.mQuantity.setText("Quantity" + mCurrentStock.getShares()+ " ");
+        holder.mMarketValue.setText("Market Value: " + mCurrentStock.getMarketValue());
+        if (mCurrentStock.getDayChange().contains("-"))
+        {
+            holder.mDayChange.setTextColor(Color.parseColor("#ff0000"));
+        }
+        else
+        {
+
+            holder.mDayChange.setTextColor(Color.parseColor("#00ff00"));
+        }
     }
 
     @Override

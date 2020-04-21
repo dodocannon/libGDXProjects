@@ -65,6 +65,10 @@ public class stock_add_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mBuyStock.setShares(Integer.parseInt(mEditTextShareNumber.getText().toString()));
+
+                System.out.println("DONKEY DONGK" + mBuyStock.getShares());
+                System.out.println(Integer.parseInt(mEditTextShareNumber.getText().toString()) + " AJFSIDHISDA FHSDAHOFSDFAIOHFAIHDOSIHODFIAHSIHA");
+                mBuyStock.updatesShare();
                 listener.stockAdd(mBuyStock);
                 mCardView1.setVisibility(View.GONE);
                 mEditTextShareNumber.setVisibility(View.GONE);
@@ -80,7 +84,7 @@ public class stock_add_fragment extends Fragment {
         mAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Stock selectedStock = null;
+                mBuyStock = null;
                 String mStockSelected = parent.getItemAtPosition(position).toString();
                 String[] mStockArr = Scraper.getData(mStockSelected.substring(0, mStockSelected.indexOf(" ")));
                 TextView mTextView1 = v.findViewById(R.id.textView1);
@@ -117,7 +121,7 @@ public class stock_add_fragment extends Fragment {
                     }
                 });
                 mCardView1.setVisibility(View.VISIBLE);
-                mBuyStock = new Stock(mTextView1.getText().toString(), mTextView2.getText().toString(), mTextView3.getText().toString(), mTextView5.getText().toString(), mTextView6.getText().toString(), 0);
+                mBuyStock = new Stock(mTextView1.getText().toString(),mTextView2.getText().toString(),mTextView3.getText().toString(), 0);
 
 
             }
