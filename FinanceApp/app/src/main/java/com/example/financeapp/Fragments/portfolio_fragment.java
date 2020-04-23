@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.financeapp.FinanceAdapter;
 import com.example.financeapp.R;
@@ -23,7 +24,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private FinanceAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManger;
     private ArrayList<Stock> stockList;
     private SwipeRefreshLayout refresher;
@@ -63,9 +64,16 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
 
         mLayoutManger = new LinearLayoutManager(getContext());
         mAdapter = new FinanceAdapter(stockList);
+        mAdapter.setOnItemClickListener(new FinanceAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(getContext(), stockList.get(position).getName(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         mRecyclerView.setLayoutManager(mLayoutManger);
         mRecyclerView.setAdapter(mAdapter);
+
 
        refresher = view.findViewById(R.id.refreshLayout);
         refresher.setOnRefreshListener(this);

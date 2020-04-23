@@ -20,11 +20,10 @@
 
             <ImageButton
                 android:id="@+id/mAddButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="right"
-
-                android:src="@android:drawable/ic_input_add" />
+                android:background="@drawable/ic_add_24px" />
 
 
         </LinearLayout>
