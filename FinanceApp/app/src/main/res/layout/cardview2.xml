@@ -7,7 +7,7 @@
     android:layout_marginHorizontal="5dp"
     android:layout_marginBottom="4dp"
     app:cardCornerRadius="4dp"
-    android:background="@android:color/transparent"
+    app:cardBackgroundColor="@color/cardview_dark_background"
     android:foreground="?android:attr/selectableItemBackground">
 
 

@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements stock_add_fragmen
         setContentView(R.layout.activity_main);
         mPortfolioFragment = new portfolio_fragment();
 
+        setTitle("jeffy time");
         getSupportFragmentManager().beginTransaction()
             .replace(R.id.Fragment_Container, mPortfolioFragment)
             .commit();

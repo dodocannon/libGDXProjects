@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -44,6 +46,10 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         stockList = new ArrayList<>();
+        Toolbar mToolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("hello");
         ImageButton mImageButton = view.findViewById(R.id.mAddButton);
 
         mImageButton.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +73,12 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
         mAdapter.setOnItemClickListener(new FinanceAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                details_fragment df = new details_fragment();
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                fragmentTransaction.add(R.id.Fragment_Container,df);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
                 Toast.makeText(getContext(), stockList.get(position).getName(), Toast.LENGTH_LONG).show();
             }
         });
