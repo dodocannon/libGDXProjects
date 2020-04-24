@@ -1,25 +1,29 @@
 package com.example.financeapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
+import com.example.financeapp.Fragments.details_fragment;
 import com.example.financeapp.Fragments.portfolio_fragment;
 import com.example.financeapp.Fragments.stock_add_fragment;
 
-public class MainActivity extends AppCompatActivity implements stock_add_fragment.stockAddFragmentListener {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity implements stock_add_fragment.stockAddFragmentListener, portfolio_fragment.stockTouchListener {
     private stock_add_fragment mFragment_stock_add;
     private portfolio_fragment mPortfolioFragment;
+    private details_fragment df;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("jeffy time");
         mPortfolioFragment = new portfolio_fragment();
 
-        setTitle("jeffy time");
+
         getSupportFragmentManager().beginTransaction()
-            .replace(R.id.Fragment_Container, mPortfolioFragment)
-            .commit();
+                .replace(R.id.Fragment_Container, mPortfolioFragment)
+                .commit();
     }
 
 
@@ -27,4 +31,19 @@ public class MainActivity extends AppCompatActivity implements stock_add_fragmen
     public void stockAdd(Stock stockName) {
         mPortfolioFragment.addStock(stockName);
     }
+
+    @Override
+    public void stockTouch(String stockName) {
+        System.out.println("touched");
+        getSupportFragmentManager().executePendingTransactions();
+        details_fragment df = (details_fragment) getSupportFragmentManager().findFragmentByTag("df");
+        if(df != null && df.isAdded()){
+
+            df.loadUI(stockName);
+        }
+
+
+
+    }
+
 }

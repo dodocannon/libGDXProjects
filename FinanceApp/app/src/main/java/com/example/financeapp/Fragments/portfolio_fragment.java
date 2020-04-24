@@ -1,5 +1,6 @@
 package com.example.financeapp.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,12 +31,21 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
     private RecyclerView.LayoutManager mLayoutManger;
     private ArrayList<Stock> stockList;
     private SwipeRefreshLayout refresher;
+    private stockTouchListener listener;
+
+    public interface stockTouchListener
+    {
+        public void stockTouch(String stockName);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.portfolio_frag, container, false);
-
+        Toolbar mToolbar = v.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("hello");
 
         return v;
     }
@@ -46,10 +56,7 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         stockList = new ArrayList<>();
-        Toolbar mToolbar = view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("hello");
+
         ImageButton mImageButton = view.findViewById(R.id.mAddButton);
 
         mImageButton.setOnClickListener(new View.OnClickListener() {
@@ -76,10 +83,11 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
                 details_fragment df = new details_fragment();
                 FragmentManager manager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                fragmentTransaction.add(R.id.Fragment_Container,df);
+                fragmentTransaction.add(R.id.Fragment_Container, df, "df");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                Toast.makeText(getContext(), stockList.get(position).getName(), Toast.LENGTH_LONG).show();
+                listener.stockTouch(stockList.get(position).getName());
+
             }
         });
 
@@ -132,4 +140,13 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
             s
         }
     }*/
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof stockTouchListener) {
+            listener = (stockTouchListener) context;
+        } else {
+            throw new RuntimeException("You didn't implement the methods");
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.financeapp.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.anychart.enums.HoverMode;
 import com.anychart.scales.DateTime;
 import com.example.financeapp.R;
 import com.example.financeapp.Scraper;
+import com.example.financeapp.Stock;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,12 +23,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-public class details_fragment extends Fragment {
+public class details_fragment extends Fragment{
+    Scatter chart;
+    AnyChartView acv;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View v = inflater.inflate(R.layout.detail_frag, container,false);
-
+       chart = AnyChart.scatter();
+       acv = v.findViewById(R.id.any_chart_view);
        ProgressBar mProgressBar = v.findViewById(R.id.progress_bar);
 
        Toolbar mToolbar = v.findViewById(R.id.toolbar);
@@ -42,8 +47,11 @@ public class details_fragment extends Fragment {
                 //getFragmentManager().beginTransaction().replace(R.id.Fragment_Container, pf).commit();
             }
         });
-        Scatter chart = AnyChart.scatter();
-        AnyChartView acv = v.findViewById(R.id.any_chart_view);
+
+       return v;
+
+    }
+    public void loadUI(String stockName){
         chart.xGrid(true);
         chart.yGrid(true);
         chart.xMinorGrid(true);
@@ -53,16 +61,11 @@ public class details_fragment extends Fragment {
         chart.xScale(DateTime.instantiate());
         DateTime dateTime = ((DateTime) chart.xScale(DateTime.class));
         dateTime.ticks().interval("d", 1);
-        Marker series = chart.marker(Scraper.getEntries("aapl"));
-        System.out.println(Scraper.getEntries("aapl"));
+        Marker series = chart.marker(Scraper.getEntries(stockName));
         series.size(1);
         chart.interactivity(HoverMode.BY_X);
 
         acv.setChart(chart);
-       return v;
-
     }
-    public void loadUI(){
 
-    }
 }

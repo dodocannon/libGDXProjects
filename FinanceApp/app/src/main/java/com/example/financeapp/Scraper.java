@@ -114,6 +114,13 @@ public class Scraper {
         };
         Thread t = new Thread(runnable);
         t.start();
+        try {
+            t.join();
+        }
+        catch(Exception e)
+        {
+            System.out.println("oooh");
+        }
         return arrData;
     }
 }
