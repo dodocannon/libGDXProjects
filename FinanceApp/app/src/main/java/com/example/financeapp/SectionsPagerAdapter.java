@@ -1,9 +1,12 @@
-/*
 package com.example.financeapp;
 
 import android.content.Context;
 
 //import com.example.financeapp.Fragments.Frag1;
+
+import com.example.financeapp.Fragments.details_fragment;
+import com.example.financeapp.Fragments.portfolio_fragment;
+import com.example.financeapp.Fragments.summary_fragment;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,10 +25,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch(position){
             case 0:
-                fragment = new Frag1();
+                fragment = new portfolio_fragment();
                 break;
             case 1:
-                fragment = new Frag2();
+                fragment = new summary_fragment();
                 break;
 
         }
@@ -41,4 +44,3 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return mContext.getResources().getString(TAB_TITLES[position]);
     }
 }
-*/

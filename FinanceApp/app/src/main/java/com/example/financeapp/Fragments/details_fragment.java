@@ -3,9 +3,13 @@ package com.example.financeapp.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -30,9 +34,12 @@ public class details_fragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View v = inflater.inflate(R.layout.detail_frag, container,false);
+       setHasOptionsMenu(true);
        chart = AnyChart.scatter();
        acv = v.findViewById(R.id.any_chart_view);
        ProgressBar mProgressBar = v.findViewById(R.id.progress_bar);
+       acv.setProgressBar(mProgressBar);
+       acv.setBackgroundColor(getResources().getColor(android.R.color.background_dark));
 
        Toolbar mToolbar = v.findViewById(R.id.toolbar);
        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
@@ -51,6 +58,36 @@ public class details_fragment extends Fragment{
        return v;
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.example_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item1:
+                Toast.makeText(getContext(), "Item 1 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item2:
+                Toast.makeText(getContext(), "Item 2 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item3:
+                Toast.makeText(getContext(), "Item 3 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.subitem1:
+                Toast.makeText(getContext(), "Sub Item 1 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.subitem2:
+                Toast.makeText(getContext(), "Sub Item 2 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void loadUI(String stockName){
         chart.xGrid(true);
         chart.yGrid(true);

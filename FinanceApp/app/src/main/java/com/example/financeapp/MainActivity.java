@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.example.financeapp.Fragments.details_fragment;
 import com.example.financeapp.Fragments.portfolio_fragment;
 import com.example.financeapp.Fragments.stock_add_fragment;
+import com.example.financeapp.Fragments.tab_fragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +13,7 @@ public class MainActivity extends AppCompatActivity implements stock_add_fragmen
     private stock_add_fragment mFragment_stock_add;
     private portfolio_fragment mPortfolioFragment;
     private details_fragment df;
-
+    private tab_fragment mTabFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,11 @@ public class MainActivity extends AppCompatActivity implements stock_add_fragmen
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.Fragment_Container, mPortfolioFragment)
                 .commit();
+     /* mTabFragment = new tab_fragment();
+      getSupportFragmentManager().beginTransaction()
+              .replace(R.id.Fragment_Container, mTabFragment)
+              .commit();*/
+
     }
 
 

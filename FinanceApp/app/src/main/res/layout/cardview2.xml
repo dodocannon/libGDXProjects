@@ -29,6 +29,8 @@
 
         <TextView
             android:id="@+id/textView1_2"
+
+            android:textColor="@android:color/darker_gray"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView1_1"
@@ -50,6 +52,7 @@
             android:text="hellooo"/>
 
         <TextView
+            android:textColor="@android:color/darker_gray"
             android:id="@+id/textView1_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +61,7 @@
             android:layout_alignTop="@id/textView1_2"
             android:text="heheheheh"/>
         <TextView
+            android:textColor="@android:color/darker_gray"
             android:id="@+id/textView1_8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +82,7 @@
             android:text="jeff"/>
         <TextView
             android:id="@+id/textView1_6"
+            android:textColor="@android:color/darker_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@id/textView1_5"
@@ -85,6 +90,7 @@
             android:layout_alignTop="@id/textView1_2"
             android:layout_below="@+id/textView1_5"/>
         <TextView
+            android:textColor="@android:color/darker_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView1_7"

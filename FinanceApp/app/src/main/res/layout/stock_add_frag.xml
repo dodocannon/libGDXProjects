@@ -82,6 +82,7 @@
             android:hint="Number of shares"
             android:textColor="@color/cardview_light_background"
             android:textColorHint="@color/cardview_light_background"
+            android:outlineSpotShadowColor="@color/cardview_light_background"
             android:visibility="gone"
             android:textSize="15sp" />
 

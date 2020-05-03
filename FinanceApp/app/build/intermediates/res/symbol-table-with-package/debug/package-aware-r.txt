@@ -1114,6 +1114,9 @@ id image
 id info
 id invisible
 id italic
+id item1
+id item2
+id item3
 id item_touch_helper_previous_elevation
 id labeled
 id largeLabel
@@ -1200,9 +1203,12 @@ id src_over
 id standard
 id start
 id stretch
+id subitem1
+id subitem2
 id submenuarrow
 id submit_area
 id tabMode
+id tabs
 id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
@@ -1247,6 +1253,7 @@ id unlabeled
 id up
 id useLogo
 id view_offset_helper
+id view_pager
 id visible
 id web_view
 id withText
@@ -1331,9 +1338,12 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout stock_add_frag
+layout summary_frag
 layout support_simple_spinner_dropdown_item
+layout tab_fragment
 layout toolbar
 layout view_anychart
+menu example_menu
 mipmap ic_launcher
 mipmap ic_launcher_round
 string abc_action_bar_home_description

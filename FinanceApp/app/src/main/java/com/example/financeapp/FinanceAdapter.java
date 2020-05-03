@@ -2,11 +2,9 @@ package com.example.financeapp;
 
 
 import android.graphics.Color;
-import android.net.sip.SipSession;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,56 +17,19 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
     private ArrayList<Stock> mPortfolioList;
     private onItemClickListener mListener;
 
-    public interface onItemClickListener{
-        void onItemClick(int position);
+    public FinanceAdapter(ArrayList<Stock> mPortfolioList) {
+        this.mPortfolioList = mPortfolioList;
     }
-    public void setOnItemClickListener(onItemClickListener listener){
+
+    public void setOnItemClickListener(onItemClickListener listener) {
         mListener = listener;
     }
 
-
-    public static class FinanceViewHolder extends RecyclerView.ViewHolder  {
-        public TextView mName, mFullName, mCurrPrice, mNetChange, mQuantity, mDayChange, mBoughtPrice,mMarketValue;
-
-        public FinanceViewHolder(View itemView,  final onItemClickListener listener) {
-            super(itemView);
-            mName = itemView.findViewById(R.id.textView1_1);
-            mFullName = itemView.findViewById(R.id.textView1_2);
-            mBoughtPrice = itemView.findViewById(R.id.textView1_4);
-            mCurrPrice = itemView.findViewById(R.id.textView1_3);
-            mDayChange = itemView.findViewById(R.id.textView1_6);
-            mNetChange = itemView.findViewById(R.id.textView1_5);
-            mQuantity = itemView.findViewById(R.id.textView1_7);
-            mMarketValue = itemView.findViewById(R.id.textView1_8);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null)
-                    {
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION)
-                        {
-                            listener.onItemClick(position);
-                        }
-                    }
-                }
-            });
-        }
-
-
-
-    }
-
-    public FinanceAdapter(ArrayList<Stock> mPortfolioList)
-    {
-        this.mPortfolioList  = mPortfolioList;
-    }
     @NonNull
     @Override
     public FinanceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview2,parent, false);
-        FinanceViewHolder mFinanceViewHolder = new FinanceViewHolder(v,mListener );
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview2, parent, false);
+        FinanceViewHolder mFinanceViewHolder = new FinanceViewHolder(v, mListener);
 
         return mFinanceViewHolder;
     }
@@ -86,12 +47,9 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
         holder.mNetChange.setText(mCurrentStock.getNetChange());
         holder.mQuantity.setText("Quantity: " + mCurrentStock.getShares());
         holder.mMarketValue.setText("Market Value: " + mCurrentStock.getMarketValue());
-        if (mCurrentStock.getDayChange().contains("-"))
-        {
+        if (mCurrentStock.getDayChange().contains("-")) {
             holder.mDayChange.setTextColor(Color.parseColor("#ff0000"));
-        }
-        else
-        {
+        } else {
 
             holder.mDayChange.setTextColor(Color.parseColor("#00ff00"));
         }
@@ -100,5 +58,46 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
     @Override
     public int getItemCount() {
         return mPortfolioList.size();
+    }
+
+    public interface onItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public static class FinanceViewHolder extends RecyclerView.ViewHolder {
+        public TextView mName, mFullName, mCurrPrice, mNetChange, mQuantity, mDayChange, mBoughtPrice, mMarketValue;
+
+        public FinanceViewHolder(final View itemView, final onItemClickListener listener) {
+            super(itemView);
+            mName = itemView.findViewById(R.id.textView1_1);
+            mFullName = itemView.findViewById(R.id.textView1_2);
+            mBoughtPrice = itemView.findViewById(R.id.textView1_4);
+            mCurrPrice = itemView.findViewById(R.id.textView1_3);
+            mDayChange = itemView.findViewById(R.id.textView1_6);
+            mNetChange = itemView.findViewById(R.id.textView1_5);
+            mQuantity = itemView.findViewById(R.id.textView1_7);
+            mMarketValue = itemView.findViewById(R.id.textView1_8);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(itemView.getContext(),"LONG CLICK",Toast.LENGTH_LONG).show();
+                    itemView.setBackgroundColor(Color.GREEN);
+                    return true;
+                }
+            });
+        }
+
     }
 }

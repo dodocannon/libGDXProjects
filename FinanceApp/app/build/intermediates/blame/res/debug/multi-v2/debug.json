@@ -1463,21 +1463,6 @@
             ]
         },
         {
-            "outputFile": "/home/kevin/code/libGDXProjects/FinanceApp/app/build/intermediates/res/merged/debug/values-ldltr-v21_values-ldltr-v21.arsc.flat",
-            "map": [
-                {
-                    "source": "/home/kevin/.gradle/caches/transforms-2/files-2.1/906744c4ddcbc384c5a8d2d69414f8fa/appcompat-1.0.2/res/values-ldltr-v21/values-ldltr-v21.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "112",
-                        "endOffsets": "163"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "/home/kevin/code/libGDXProjects/FinanceApp/app/build/intermediates/res/merged/debug/values-zh-rHK_values-zh-rHK.arsc.flat",
             "map": [
                 {
@@ -1505,6 +1490,21 @@
                         "startOffsets": "2746",
                         "endColumns": "100",
                         "endOffsets": "2842"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/kevin/code/libGDXProjects/FinanceApp/app/build/intermediates/res/merged/debug/values-ldltr-v21_values-ldltr-v21.arsc.flat",
+            "map": [
+                {
+                    "source": "/home/kevin/.gradle/caches/transforms-2/files-2.1/906744c4ddcbc384c5a8d2d69414f8fa/appcompat-1.0.2/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "112",
+                        "endOffsets": "163"
                     }
                 }
             ]

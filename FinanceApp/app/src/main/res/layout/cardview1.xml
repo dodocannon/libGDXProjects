@@ -22,6 +22,8 @@
             android:layout_height="wrap_content"
             android:text="fuck yea"
             android:textSize="17sp"
+
+            android:textColor="@color/cardview_light_background"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"/>
 
@@ -30,6 +32,8 @@
             android:id="@+id/textView2"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+
+            android:textColor="@android:color/darker_gray"
             android:layout_below="@+id/textView1"
             android:maxLines="2"
             android:scrollHorizontally="false"
@@ -37,6 +41,8 @@
 
         <TextView
             android:id="@+id/textView3"
+            android:textColor="@color/cardview_light_background"
+
 
             android:textSize="17sp"
             android:layout_width="wrap_content"
@@ -49,6 +55,8 @@
 
         <TextView
             android:id="@+id/textView4"
+
+            android:textColor="@android:color/darker_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView3"
@@ -58,6 +66,7 @@
 
         <TextView
             android:id="@+id/textView5"
+
 
             android:textSize="17sp"
             android:layout_width="wrap_content"
