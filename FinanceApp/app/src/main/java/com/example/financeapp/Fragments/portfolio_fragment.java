@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import com.example.financeapp.R;
 import com.example.financeapp.Stock;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,7 +34,11 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
     private ArrayList<Stock> stockList;
     private SwipeRefreshLayout refresher;
     private stockTouchListener listener;
-
+    private ImageButton mAddButton, mRemoveButton;
+    private Button mCancelButton;
+    private int selectPos;
+    private boolean selectorMode;
+    private ArrayList<Integer> selectList = new ArrayList<>();
     public interface stockTouchListener
     {
         public void stockTouch(String stockName);
@@ -56,10 +62,10 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         stockList = new ArrayList<>();
+        mCancelButton = view.findViewById(R.id.mCancelButton);
+        mAddButton = view.findViewById(R.id.mAddButton);
 
-        ImageButton mImageButton = view.findViewById(R.id.mAddButton);
-
-        mImageButton.setOnClickListener(new View.OnClickListener() {
+        mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stock_add_fragment saf = new stock_add_fragment();
@@ -72,6 +78,40 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
 
             }
         });
+        mCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRemoveButton.setVisibility(View.GONE);
+                mCancelButton.setVisibility(View.GONE);
+                selectList.clear();
+                mAdapter.selected = false;
+                mAddButton.setVisibility(View.VISIBLE);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+        mRemoveButton = view.findViewById(R.id.mRemoveButton);
+        mRemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRemoveButton.setVisibility(View.GONE);
+                mCancelButton.setVisibility(View.GONE);
+                Collections.sort(selectList);
+                for (int i = 0 ; i < selectList.size(); i++)
+                {
+                    int index = selectList.get(i);
+                    if (i!=0)
+                    {
+                        index--;
+                    }
+                    stockList.remove(index);
+                    mAdapter.notifyItemRemoved(index);
+                }
+                selectList.clear();
+                mAdapter.selected = false;
+                mAddButton.setVisibility(View.VISIBLE);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         mRecyclerView = view.findViewById(R.id.mRecyclerView);
         mRecyclerView.setHasFixedSize(true);
 
@@ -79,15 +119,35 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
         mAdapter = new FinanceAdapter(stockList);
         mAdapter.setOnItemClickListener(new FinanceAdapter.onItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-                details_fragment df = new details_fragment();
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                fragmentTransaction.add(R.id.Fragment_Container, df, "df");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                listener.stockTouch(stockList.get(position).getName());
+            public void onItemClick(int position, boolean selected) {
+                if (selected){
+                    if (selectList.contains(position)){
+                        selectList.remove(position);
+                    }
+                    selectList.add(position);
+                }
+                else {
+                    details_fragment df = new details_fragment();
+                    FragmentManager manager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                    fragmentTransaction.add(R.id.Fragment_Container, df, "df");
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    listener.stockTouch(stockList.get(position).getName());
+                }
 
+            }
+        });
+        mAdapter.setOnLongItemClickListener(new FinanceAdapter.onLongItemClickListener() {
+            @Override
+            public void onLongItemClick(int position) {
+                selectPos = position;
+
+                selectList.add(position);
+                mAdapter.selected = true;
+                mAddButton.setVisibility(View.GONE);
+                mRemoveButton.setVisibility(View.VISIBLE);
+                mCancelButton.setVisibility(View.VISIBLE);
             }
         });
 
