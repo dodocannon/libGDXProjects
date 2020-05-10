@@ -1,6 +1,7 @@
 package com.example.financeapp.Fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,13 @@ import android.widget.Toast;
 import com.example.financeapp.FinanceAdapter;
 import com.example.financeapp.R;
 import com.example.financeapp.Stock;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +31,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView mRecyclerView;
@@ -61,7 +68,7 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        stockList = new ArrayList<>();
+        loadData();
         mCancelButton = view.findViewById(R.id.mCancelButton);
         mAddButton = view.findViewById(R.id.mAddButton);
 
@@ -96,20 +103,21 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
                 mRemoveButton.setVisibility(View.GONE);
                 mCancelButton.setVisibility(View.GONE);
                 Collections.sort(selectList);
+
                 for (int i = 0 ; i < selectList.size(); i++)
+
                 {
-                    int index = selectList.get(i);
-                    if (i!=0)
-                    {
-                        index--;
-                    }
+                    int index = selectList.get(i)-i;
+
                     stockList.remove(index);
+
                     mAdapter.notifyItemRemoved(index);
                 }
                 selectList.clear();
                 mAdapter.selected = false;
                 mAddButton.setVisibility(View.VISIBLE);
                 mAdapter.notifyDataSetChanged();
+                saveData();
             }
         });
         mRecyclerView = view.findViewById(R.id.mRecyclerView);
@@ -124,7 +132,9 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
                     if (selectList.contains(position)){
                         selectList.remove(position);
                     }
-                    selectList.add(position);
+                    else{
+                        selectList.add(position);
+                    }
                 }
                 else {
                     details_fragment df = new details_fragment();
@@ -135,6 +145,7 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
                     fragmentTransaction.commit();
                     listener.stockTouch(stockList.get(position).getName());
                 }
+                mAdapter.notifyDataSetChanged();
 
             }
         });
@@ -190,7 +201,9 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
     public void addStock(Stock mStockAdd)
     {
        System.out.println("ADDDED1");
+
        stockList.add(0,mStockAdd);
+       saveData();
        mAdapter.notifyDataSetChanged();
     }
     /*public void updateStocks()
@@ -207,6 +220,27 @@ public class portfolio_fragment extends Fragment implements SwipeRefreshLayout.O
             listener = (stockTouchListener) context;
         } else {
             throw new RuntimeException("You didn't implement the methods");
+        }
+    }
+    public void saveData()
+    {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(stockList);
+        editor.putString("task list", json);
+        editor.apply();
+    }
+    public void loadData()
+    {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("task list", null);
+        Type type = new TypeToken<ArrayList<Stock>>() {}.getType();
+        stockList = gson.fromJson(json, type);
+
+        if (stockList == null) {
+            stockList = new ArrayList<>();
         }
     }
 }

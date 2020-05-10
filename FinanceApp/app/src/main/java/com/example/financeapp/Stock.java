@@ -39,8 +39,13 @@ public class Stock {
         }
         dMarketValue = dCurrentPrice * shares;
         mMarketValue = dMarketValue + "";
-        mChange = " " + (dMarketValue - dOriginalMarket);
-        mPercentChange = ((dMarketValue - dOriginalMarket) / dOriginalMarket) + "";
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        mChange = " " + df.format(dMarketValue - dOriginalMarket);
+        mPercentChange = (df.format((dMarketValue - dOriginalMarket) / dOriginalMarket)) + "";
+        System.out.println("CHANGE" + (dMarketValue-dOriginalMarket));
+        System.out.println("origL : " + dOriginalMarket);
+        System.out.println( "PErcnetL :" + mPercentChange);
         mDayChange = mStockArr[2];
 
         System.out.printf("\n%s %s %s %s %s %s %s %s\n", getName(), getFullName(), getCurrentSharePrice(), getBoughtSharePrice(), getDayChange(),getNetChange(),getShares(), getMarketValue());
@@ -81,6 +86,10 @@ public class Stock {
     }
     public int getShares() {
         return shares;
+    }
+    public String getPercentChange()
+    {
+        return mPercentChange;
     }
 
 }

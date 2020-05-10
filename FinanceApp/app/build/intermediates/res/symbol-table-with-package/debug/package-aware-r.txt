@@ -1002,6 +1002,7 @@ drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
 drawable ic_add_24px
+drawable ic_clear_24px
 drawable ic_done_24px
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -1128,10 +1129,12 @@ id list_item
 id loadingPanel
 id mAddButton
 id mAutoCompleteTextView
+id mCancelButton
 id mCardView1
 id mCheckButton
 id mEditTextShareNumber
 id mRecyclerView
+id mRemoveButton
 id masked
 id message
 id middle

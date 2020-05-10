@@ -2,6 +2,7 @@ package com.example.financeapp;
 
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,7 +105,14 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
                             listener.onItemClick(position, selected);
                             if (selected)
                             {
-                                itemView.setBackgroundColor(Color.GRAY);
+                                if (((ColorDrawable)itemView.getBackground()).getColor()==Color.GRAY)
+                                {
+                                    itemView.setBackgroundColor(Color.TRANSPARENT);
+                                }
+                                else
+                                {
+                                    itemView.setBackgroundColor(Color.GRAY);
+                                }
                             }
                         }
                     }
@@ -113,7 +121,6 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    Toast.makeText(itemView.getContext(),"LONG CLICK",Toast.LENGTH_LONG).show();
                     itemView.setBackgroundColor(Color.GRAY);
                     if (longlistener != null){
                         int position = getAdapterPosition();
